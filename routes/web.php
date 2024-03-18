@@ -20,13 +20,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::controller(LeadController::class)->name('leads.')->group(function () {
-        Route::get('/leads/novos', 'novos')->name('novos');
-    });
     Route::controller(ProfileController::class)->name('profile.')->group(function () {
         Route::get('/perfil', 'edit')->name('edit');
         Route::patch('/perfil', 'update')->name('update');
         Route::delete('/perfil', 'destroy')->name('destroy');
+    });
+    Route::middleware('modulo:2')->group(function () {
+        Route::controller(LeadController::class)->name('leads.')->group(function () {
+            Route::get('/leads/novos', 'novos')->name('novos');
+        });
     });
 });
 require __DIR__ . '/auth.php';
