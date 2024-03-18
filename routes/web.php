@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -19,6 +20,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::controller(LeadController::class)->name('leads.')->group(function () {
+        Route::get('/leads/novos', 'novos')->name('novos');
+    });
     Route::controller(ProfileController::class)->name('profile.')->group(function () {
         Route::get('/perfil', 'edit')->name('edit');
         Route::patch('/perfil', 'update')->name('update');
