@@ -10,13 +10,6 @@ class LeadController extends Controller
      */
     public function index()
     {
-        //
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function novos()
-    {
         return view('leads.novos');
     }
     /**
@@ -24,7 +17,7 @@ class LeadController extends Controller
      */
     public function create()
     {
-        //
+        return view('leads.cadastrar');
     }
     /**
      * Store a newly created resource in storage.

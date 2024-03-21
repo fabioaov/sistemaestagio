@@ -3,7 +3,7 @@
     @elseif(Auth::user()->modulo === 2)
         <x-sidebar.dropdown title="Leads" :active="Str::startsWith(request()->route()->uri(), 'leads')">
             <x-slot name="icon">
-                <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+                <x-heroicon-o-filter class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             </x-slot>
             <x-sidebar.sublink title="Novos" href="{{ route('leads.novos') }}" :active="request()->routeIs('leads.novos')" />
         </x-sidebar.dropdown>

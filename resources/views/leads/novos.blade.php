@@ -2,11 +2,16 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Leads > Novos') }}
+                Leads > Novos
             </h2>
         </div>
     </x-slot>
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+        <div class="grid">
+            <x-button href="{{ route('leads.create') }}" class="justify-self-end max-w-xs gap-2 mb-6">
+                <span>Cadastrar novo lead</span>
+            </x-button>
+        </div>
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
