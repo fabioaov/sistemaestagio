@@ -11,64 +11,83 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <form method="POST" action="">
             @csrf
-            <div class="grid gap-6">
-                <!-- Name -->
-                <div class="space-y-2">
-                    <x-form.label for="name" :value="__('Name')" />
-                    <x-form.input-with-icon-wrapper>
-                        <x-slot name="icon">
-                            <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
-                        </x-slot>
-                        <x-form.input withicon id="name" class="block w-full" type="text" name="name"
-                            :value="old('name')" required autofocus placeholder="{{ __('Name') }}" />
-                    </x-form.input-with-icon-wrapper>
+            <div class="grid gap-6 grid-cols-4">
+                <!-- CNPJ -->
+                <div class="space-y-2 col-span-4">
+                    <x-form.label for="cnpj" :value="'CNPJ'" />
+                    <x-form.input class="block w-full cnpj" type="text" name="cnpj" :value="old('cnpj')" autofocus
+                        placeholder="CNPJ" minlength="14" maxlength="14" />
                 </div>
-                <!-- Email Address -->
-                <div class="space-y-2">
-                    <x-form.label for="email" :value="__('E-mail')" />
-                    <x-form.input-with-icon-wrapper>
-                        <x-slot name="icon">
-                            <x-heroicon-o-mail aria-hidden="true" class="w-5 h-5" />
-                        </x-slot>
-                        <x-form.input withicon id="email" class="block w-full" type="email" name="email"
-                            :value="old('email')" required placeholder="{{ __('E-mail') }}" />
-                    </x-form.input-with-icon-wrapper>
+                <!-- Razão social -->
+                <div class="space-y-2 col-span-4">
+                    <x-form.label for="razao_social" :value="'Razão social'" />
+                    <x-form.input class="block w-full" type="text" name="razao_social" :value="old('razao_social')" autofocus
+                        placeholder="Razão social" maxlength="100" />
                 </div>
-                <!-- Password -->
-                <div class="space-y-2">
-                    <x-form.label for="password" :value="__('Password')" />
-                    <x-form.input-with-icon-wrapper>
-                        <x-slot name="icon">
-                            <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
-                        </x-slot>
-                        <x-form.input withicon id="password" class="block w-full" type="password" name="password"
-                            required autocomplete="new-password" placeholder="{{ __('Password') }}" />
-                    </x-form.input-with-icon-wrapper>
+                <!-- Nome fantasia -->
+                <div class="space-y-2 col-span-4">
+                    <x-form.label for="nome_fantasia" :value="'Nome fantasia'" />
+                    <x-form.input class="block w-full" type="text" name="nome_fantasia" :value="old('nome_fantasia')" autofocus
+                        placeholder="Nome fantasia" maxlength="100" />
                 </div>
-                <!-- Confirm Password -->
-                <div class="space-y-2">
-                    <x-form.label for="password_confirmation" :value="__('Confirm Password')" />
-                    <x-form.input-with-icon-wrapper>
-                        <x-slot name="icon">
-                            <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
-                        </x-slot>
-                        <x-form.input withicon id="password_confirmation" class="block w-full" type="password"
-                            name="password_confirmation" required placeholder="{{ __('Confirm Password') }}" />
-                    </x-form.input-with-icon-wrapper>
+                <!-- CEP -->
+                {{-- TODO: Utilizar API pra inserir automaticamente restante do endereço ao preencher o CEP --}}
+                <div class="space-y-2 col-span-1">
+                    <x-form.label for="cep" :value="'CEP'" />
+                    <x-form.input class="block w-full cep" type="text" name="cep" :value="old('cep')" autofocus
+                        placeholder="CEP" minlength="9" maxlength="9" />
                 </div>
-                <div>
-                    <x-button class="justify-center w-full gap-2">
-                        <x-heroicon-o-user-add class="w-6 h-6" aria-hidden="true" />
-                        <span>{{ __('Register') }}</span>
+                <!-- Logradouro -->
+                <div class="space-y-2 col-span-3">
+                    <x-form.label for="logradouro" :value="'Logradouro'" />
+                    <x-form.input class="block w-full" type="text" name="logradouro" :value="old('logradouro')" autofocus
+                        placeholder="Logradouro" maxlength="100" />
+                </div>
+                <!-- Estado -->
+                {{-- TODO: Transformar em select e preencher através do banco de dados --}}
+                <div class="space-y-2 col-span-2">
+                    <x-form.label for="estado" :value="'Estado'" />
+                    <x-form.input class="block w-full" type="text" name="estado" :value="old('estado')" autofocus
+                        placeholder="Estado" maxlength="50" />
+                </div>
+                <!-- Cidade -->
+                {{-- TODO: Transformar em select e preencher através do banco de dados com base no estado selecionado --}}
+                <div class="space-y-2 col-span-2">
+                    <x-form.label for="cidade" :value="'Cidade'" />
+                    <x-form.input class="block w-full" type="text" name="cidade" :value="old('cidade')" autofocus
+                        placeholder="Cidade" maxlength="50" />
+                </div>
+                <!-- Ponto de referência -->
+                <div class="space-y-2 col-span-4">
+                    <x-form.label for="ponto_referencia" :value="'Ponto de referência'" />
+                    <x-form.input class="block w-full" type="text" name="ponto_referencia" :value="old('ponto_referencia')"
+                        autofocus placeholder="Ponto de referência" maxlength="100" />
+                </div>
+                <!-- E-mail -->
+                <div class="space-y-2 col-span-2">
+                    <x-form.label for="email" :value="'E-mail'" />
+                    <x-form.input class="block w-full" type="email" name="email" :value="old('email')" autofocus
+                        placeholder="E-mail" maxlength="50" />
+                </div>
+                <!-- Celular / telefone -->
+                <div class="space-y-2 col-span-2">
+                    <x-form.label for="telefone" :value="'Celular / telefone'" />
+                    <x-form.input class="block w-full telefone" type="text" name="telefone" :value="old('telefone')"
+                        autofocus placeholder="Celular / telefone" />
+                </div>
+                <!-- Representante -->
+                <div class="space-y-2 col-span-4">
+                    <x-form.label for="representante" :value="'Representante'" />
+                    <x-form.input class="block w-full" type="text" name="representante" :value="old('representante')" autofocus
+                        placeholder="Representante" maxlength="50" />
+                </div>
+                <div class="space-y-2 col-span-4">
+                    <x-button {{-- href="{{ route('leads.store') }}" --}} class="justify-center w-full gap-2">
+                        <span>Cadastrar</span>
                     </x-button>
                 </div>
-                <p class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ __('Already registered?') }}
-                    <a href="{{ route('login') }}" class="text-blue-500 hover:underline">
-                        {{ __('Login') }}
-                    </a>
-                </p>
             </div>
         </form>
     </div>
 </x-app-layout>
+@vite(['resources/js/masks.js'])
