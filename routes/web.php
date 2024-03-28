@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CidadeController;
+use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
 
@@ -15,6 +17,12 @@ use App\Http\Controllers\ProfileController;
 */
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/estados/{siglaEstado}', [EstadoController::class, 'getEstadoPorSigla']);
+Route::controller(CidadeController::class)->group(function () { 
+    Route::get('/cidades/{idEstado}', 'getCidadesPorEstado');
+    Route::get('/cidade/{nomeCidade}', 'getCidadePorNome');
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Estado;
 use Illuminate\Http\Request;
 
 class LeadController extends Controller
@@ -17,7 +18,8 @@ class LeadController extends Controller
      */
     public function create()
     {
-        return view('leads.cadastrar');
+        $estados = Estado::all();
+        return view('leads.form', compact('estados'));
     }
     /**
      * Store a newly created resource in storage.

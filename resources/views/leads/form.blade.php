@@ -33,28 +33,32 @@
                 <!-- CEP -->
                 <div class="space-y-2 col-span-1">
                     <x-form.label for="cep" :value="'CEP'" />
-                    <x-form.input class="block w-full cep" type="text" name="cep" id="cep" :value="old('cep')" autofocus
-                        placeholder="CEP" minlength="9" maxlength="9" onblur="consultarCep(this.value);" />
+                    <x-form.input class="block w-full cep" type="text" name="cep" id="cep"
+                        :value="old('cep')" autofocus placeholder="CEP" minlength="9" maxlength="9" />
                 </div>
                 <!-- Logradouro -->
                 <div class="space-y-2 col-span-3">
                     <x-form.label for="logradouro" :value="'Logradouro'" />
-                    <x-form.input class="block w-full" type="text" name="logradouro" id="logradouro" :value="old('logradouro')" autofocus
-                        placeholder="Logradouro" maxlength="100" />
+                    <x-form.input class="block w-full" type="text" name="logradouro" id="logradouro"
+                        :value="old('logradouro')" autofocus placeholder="Logradouro" maxlength="100" />
                 </div>
                 <!-- Estado -->
-                {{-- TODO: Transformar em select e preencher através do banco de dados --}}
                 <div class="space-y-2 col-span-2">
                     <x-form.label for="estado" :value="'Estado'" />
-                    <x-form.input class="block w-full" type="text" name="estado" id="estado" :value="old('estado')" autofocus
-                        placeholder="Estado" maxlength="50" />
+                    <x-form.select class="block w-full" name="estado" id="estado" autofocus>
+                        <option value="">Selecione</option>
+                        @foreach ($estados as $estado)
+                            <option value="{{ $estado->id }}" @selected(old('estado') == $estado->id)>{{ $estado->nome }}
+                            </option>
+                        @endforeach
+                    </x-form.select>
                 </div>
                 <!-- Cidade -->
-                {{-- TODO: Transformar em select e preencher através do banco de dados com base no estado selecionado --}}
                 <div class="space-y-2 col-span-2">
                     <x-form.label for="cidade" :value="'Cidade'" />
-                    <x-form.input class="block w-full" type="text" name="cidade" id="cidade" :value="old('cidade')" autofocus
-                        placeholder="Cidade" maxlength="50" />
+                    <x-form.select class="block w-full" name="cidade" id="cidade" autofocus>
+                        <option value="">Selecione um estado</option>
+                    </x-form.select>
                 </div>
                 <!-- Ponto de referência -->
                 <div class="space-y-2 col-span-4">
@@ -89,4 +93,4 @@
         </form>
     </div>
 </x-app-layout>
-@vite(['resources/js/masks.js', 'resources/js/cep.js'])
+@vite(['resources/js/masks.js', 'resources/js/endereco.js'])
