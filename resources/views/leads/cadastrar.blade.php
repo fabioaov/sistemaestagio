@@ -31,30 +31,29 @@
                         placeholder="Nome fantasia" maxlength="100" />
                 </div>
                 <!-- CEP -->
-                {{-- TODO: Utilizar API pra inserir automaticamente restante do endereço ao preencher o CEP --}}
                 <div class="space-y-2 col-span-1">
                     <x-form.label for="cep" :value="'CEP'" />
-                    <x-form.input class="block w-full cep" type="text" name="cep" :value="old('cep')" autofocus
-                        placeholder="CEP" minlength="9" maxlength="9" />
+                    <x-form.input class="block w-full cep" type="text" name="cep" id="cep" :value="old('cep')" autofocus
+                        placeholder="CEP" minlength="9" maxlength="9" onblur="consultarCep(this.value);" />
                 </div>
                 <!-- Logradouro -->
                 <div class="space-y-2 col-span-3">
                     <x-form.label for="logradouro" :value="'Logradouro'" />
-                    <x-form.input class="block w-full" type="text" name="logradouro" :value="old('logradouro')" autofocus
+                    <x-form.input class="block w-full" type="text" name="logradouro" id="logradouro" :value="old('logradouro')" autofocus
                         placeholder="Logradouro" maxlength="100" />
                 </div>
                 <!-- Estado -->
                 {{-- TODO: Transformar em select e preencher através do banco de dados --}}
                 <div class="space-y-2 col-span-2">
                     <x-form.label for="estado" :value="'Estado'" />
-                    <x-form.input class="block w-full" type="text" name="estado" :value="old('estado')" autofocus
+                    <x-form.input class="block w-full" type="text" name="estado" id="estado" :value="old('estado')" autofocus
                         placeholder="Estado" maxlength="50" />
                 </div>
                 <!-- Cidade -->
                 {{-- TODO: Transformar em select e preencher através do banco de dados com base no estado selecionado --}}
                 <div class="space-y-2 col-span-2">
                     <x-form.label for="cidade" :value="'Cidade'" />
-                    <x-form.input class="block w-full" type="text" name="cidade" :value="old('cidade')" autofocus
+                    <x-form.input class="block w-full" type="text" name="cidade" id="cidade" :value="old('cidade')" autofocus
                         placeholder="Cidade" maxlength="50" />
                 </div>
                 <!-- Ponto de referência -->
@@ -90,4 +89,4 @@
         </form>
     </div>
 </x-app-layout>
-@vite(['resources/js/masks.js'])
+@vite(['resources/js/masks.js', 'resources/js/cep.js'])
