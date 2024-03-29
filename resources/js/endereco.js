@@ -2,7 +2,7 @@ $("#cep").on("blur", function () {
     consultarCep($(this).val());
 });
 $("#estado").on("change", function () {
-    buscarCidadesPorEstado($(this).val());
+    buscarCidadesPorIdEstado($(this).val());
 });
 function consultarCep(cep) {
     $.get(`https://viacep.com.br/ws/${cep}/json/`)
