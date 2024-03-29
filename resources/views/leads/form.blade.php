@@ -9,14 +9,14 @@
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        <form method="POST" action="">
+        <form method="POST" action="{{ route('leads.store') }}">
             @csrf
             <div class="grid gap-6 grid-cols-4">
                 <!-- CNPJ -->
                 <div class="space-y-2 col-span-4">
                     <x-form.label for="cnpj" :value="'CNPJ'" />
                     <x-form.input class="block w-full cnpj" type="text" name="cnpj" :value="old('cnpj')" autofocus
-                        placeholder="CNPJ" minlength="14" maxlength="14" />
+                        placeholder="CNPJ" />
                 </div>
                 <!-- Razão social -->
                 <div class="space-y-2 col-span-4">
@@ -34,13 +34,13 @@
                 <div class="space-y-2 col-span-1">
                     <x-form.label for="cep" :value="'CEP'" />
                     <x-form.input class="block w-full cep" type="text" name="cep" id="cep"
-                        :value="old('cep')" autofocus placeholder="CEP" minlength="9" maxlength="9" />
+                        :value="old('cep')" autofocus placeholder="CEP" />
                 </div>
                 <!-- Logradouro -->
                 <div class="space-y-2 col-span-3">
                     <x-form.label for="logradouro" :value="'Logradouro'" />
                     <x-form.input class="block w-full" type="text" name="logradouro" id="logradouro"
-                        :value="old('logradouro')" autofocus placeholder="Logradouro" maxlength="100" />
+                        :value="old('logradouro')" autofocus placeholder="Logradouro" maxlength="150" />
                 </div>
                 <!-- Estado -->
                 <div class="space-y-2 col-span-2">
@@ -48,7 +48,8 @@
                     <x-form.select class="block w-full" name="estado" id="estado" autofocus>
                         <option value="">Selecione</option>
                         @foreach ($estados as $estado)
-                            <option value="{{ $estado->id }}" @selected(old('estado') == $estado->id)>{{ $estado->nome }}
+                            <option value="{{ $estado->id }}" @selected(old('estado') == $estado->id)>
+                                {{ $estado->nome }}
                             </option>
                         @endforeach
                     </x-form.select>
@@ -64,7 +65,7 @@
                 <div class="space-y-2 col-span-4">
                     <x-form.label for="ponto_referencia" :value="'Ponto de referência'" />
                     <x-form.input class="block w-full" type="text" name="ponto_referencia" :value="old('ponto_referencia')"
-                        autofocus placeholder="Ponto de referência" maxlength="100" />
+                        autofocus placeholder="Ponto de referência" maxlength="150" />
                 </div>
                 <!-- E-mail -->
                 <div class="space-y-2 col-span-2">
@@ -85,7 +86,7 @@
                         placeholder="Representante" maxlength="50" />
                 </div>
                 <div class="space-y-2 col-span-4">
-                    <x-button {{-- href="{{ route('leads.store') }}" --}} class="justify-center w-full gap-2">
+                    <x-button class="justify-center w-full gap-2">
                         <span>Cadastrar</span>
                     </x-button>
                 </div>

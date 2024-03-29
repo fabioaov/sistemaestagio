@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LeadRequest;
 use App\Models\Estado;
+use App\Models\Lead;
 use Illuminate\Http\Request;
 
 class LeadController extends Controller
@@ -24,9 +26,17 @@ class LeadController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LeadRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated['id_estado'] = $validated['estado'] ?? null;
+        $validated['id_cidade'] = $validated['cidade'] ?? null;
+        unset($validated['estado']);
+        unset($validated['cidade']);
+        $lead = new Lead;
+        $lead->fill($validated);
+        $lead->save();
+        return redirect()->route('leads.novos');
     }
     /**
      * Display the specified resource.

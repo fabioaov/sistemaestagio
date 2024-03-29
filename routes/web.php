@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(LeadController::class)->name('leads.')->group(function () {
             Route::get('/leads/novos', 'index')->name('novos');
             Route::get('/leads/cadastrar', 'create')->name('create');
+            Route::post('/leads', 'store')->name('store');
         });
     });
 });
