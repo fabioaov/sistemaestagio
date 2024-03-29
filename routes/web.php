@@ -18,10 +18,10 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/estados/{siglaEstado}', [EstadoController::class, 'getEstadoPorSigla']);
+Route::get('/estados/{siglaEstado}', [EstadoController::class, 'getIdEstadoPorSigla']);
 Route::controller(CidadeController::class)->group(function () { 
-    Route::get('/cidades/{idEstado}', 'getCidadesPorEstado');
-    Route::get('/cidade/{nomeCidade}', 'getCidadePorNome');
+    Route::get('/cidades/{idEstado}', 'getCidadesPorIdEstado');
+    Route::get('/cidade/{nomeCidade}/{siglaEstado}', 'getIdCidadePorNomeESiglaEstado');
 
 });
 Route::middleware('auth')->group(function () {

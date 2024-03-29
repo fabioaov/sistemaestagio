@@ -7,17 +7,17 @@ $("#estado").on("change", function () {
 function consultarCep(cep) {
     $.get(`https://viacep.com.br/ws/${cep}/json/`)
         .done(function (data) {
-            const endereco = `${data.logradouro}, ${data.complemento}, ${data.bairro}`;
+            const endereco = data.complemento.trim() !== "" ? `${data.logradouro}, ${data.complemento}, ${data.bairro}` : `${data.logradouro}, ${data.bairro}`;
             $("#logradouro").val(endereco);
-            buscarEstadoPorSigla(data.uf, function () {
-                buscarCidadePorNome(data.localidade);
+            buscarIdEstadoPorSigla(data.uf, function () {
+                buscarIdCidadePorNomeESiglaEstado(data.localidade, data.uf);
             });
         })
         .fail(function (error) {
             console.error("Erro ao consultar o CEP:", error);
         });
 }
-function buscarCidadesPorEstado(idEstado) {
+function buscarCidadesPorIdEstado(idEstado) {
     $.get(`/cidades/${idEstado}`).done(function (data) {
         let selectCidade = $("#cidade");
         selectCidade.empty();
@@ -29,17 +29,17 @@ function buscarCidadesPorEstado(idEstado) {
         });
     });
 }
-function buscarCidadePorNome(nomeCidade) {
-    $.get(`/cidade/${nomeCidade}`).done(function (data) {
+function buscarIdCidadePorNomeESiglaEstado(nomeCidade, siglaEstado) {
+    $.get(`/cidade/${nomeCidade}/${siglaEstado}`).done(function (data) {
         let selectCidade = $("#cidade");
-        selectCidade.val(data.id);
+        selectCidade.val(data);
     });
 }
-function buscarEstadoPorSigla(siglaEstado, callback) {
+function buscarIdEstadoPorSigla(siglaEstado, callback) {
     $.get(`/estados/${siglaEstado}`).done(function (data) {
         let selectEstado = $("#estado");
-        selectEstado.val(data.id);
-        buscarCidadesPorEstado(data.id);
+        selectEstado.val(data);
+        buscarCidadesPorIdEstado(data);
         if (callback) {
             callback();
         }

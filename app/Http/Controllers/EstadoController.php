@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 class EstadoController extends Controller
 {
-    public function getEstadoPorSigla($siglaEstado)
+    /**
+     * Obtém o ID de um estado a partir da sigla.
+     * @param string $siglaEstado A sigla do estado.
+     * @return mixed|\Illuminate\Http\JsonResponse Um objeto JSON contendo o ID do estado encontrado.
+     */
+    public function getIdEstadoPorSigla(string $siglaEstado)
     {
-        $estado = Estado::where('sigla', $siglaEstado)->first();
-        return response()->json($estado);
+        $idEstado = Estado::where('sigla', $siglaEstado)->pluck('id')->first();
+        return response()->json($idEstado);
     }
 }
