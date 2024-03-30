@@ -41,17 +41,17 @@ class LeadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cnpj' => 'size:18|nullable|required_without_all:razao_social,nome_fantasia,cep,logradouro,ponto_referencia,email,telefone,representante',
-            'razao_social' => 'max:100|nullable|required_without_all:cnpj,nome_fantasia,cep,logradouro,ponto_referencia,email,telefone,representante',
-            'nome_fantasia' => 'max:100|nullable|required_without_all:cnpj,razao_social,cep,logradouro,ponto_referencia,email,telefone,representante',
-            'cep' => 'size:9|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,ponto_referencia,email,telefone,representante',
-            'logradouro' => 'max:150|nullable|required_without_all:cnpj,razao_social,nome_fantasia,cep,ponto_referencia,email,telefone,representante',
+            'cnpj' => 'size:18|nullable|required_without_all:razao_social,nome_fantasia,logradouro,email,telefone,representante',
+            'razao_social' => 'max:100|nullable|required_without_all:cnpj,nome_fantasia,logradouro,email,telefone,representante',
+            'nome_fantasia' => 'max:100|nullable|required_without_all:cnpj,razao_social,email,telefone,representante',
+            'cep' => 'size:9|nullable',
+            'logradouro' => 'max:150|nullable|required_without_all:cnpj,razao_social,nome_fantasia,email,telefone,representante',
             'estado' => 'exists:estados,id|nullable|required_with:logradouro,ponto_referencia',
             'cidade' => 'exists:cidades,id|nullable|required_with:estado',
-            'ponto_referencia' => 'max:150|nullable|required_without_all:cnpj,razao_social,nome_fantasia,cep,logradouro,email,telefone,representante',
-            'email' => 'max:50|nullable|required_without_all:cnpj,razao_social,nome_fantasia,cep,logradouro,ponto_referencia,telefone,representante',
-            'telefone' => 'max:15|nullable|required_without_all:cnpj,razao_social,nome_fantasia,cep,logradouro,ponto_referencia,email,representante',
-            'representante' => 'max:50|nullable|required_without_all:cnpj,razao_social,nome_fantasia,cep,logradouro,ponto_referencia,email,telefone',
+            'ponto_referencia' => 'max:150|nullable',
+            'email' => 'max:50|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,telefone,representante',
+            'telefone' => 'max:15|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,email,representante',
+            'representante' => 'max:50|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,email,telefone',
         ];
     }
 }
