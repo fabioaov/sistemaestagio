@@ -34,7 +34,7 @@
                 <div class="space-y-2 col-span-1">
                     <x-form.label for="cep" :value="'CEP'" />
                     <x-form.input class="block w-full cep" type="text" name="cep" id="cep"
-                        :value="old('cep')" autofocus placeholder="CEP" />
+                        :value="old('cep')" autofocus placeholder="CEP" onblur="consultarCep(this.value);" />
                 </div>
                 <!-- Logradouro -->
                 <div class="space-y-2 col-span-3">
@@ -45,7 +45,8 @@
                 <!-- Estado -->
                 <div class="space-y-2 col-span-2">
                     <x-form.label for="estado" :value="'Estado'" />
-                    <x-form.select class="block w-full" name="estado" id="estado" autofocus>
+                    <x-form.select class="block w-full" name="estado" id="estado" autofocus
+                        onchange="buscarCidadesPorIdEstado(this.value);">
                         <option value="">Selecione</option>
                         @foreach ($estados as $estado)
                             <option value="{{ $estado->id }}" @selected(old('estado') == $estado->id)>
@@ -94,4 +95,7 @@
         </form>
     </div>
 </x-app-layout>
+<script>
+    const oldCidade = '{{ old('cidade') }}';
+</script>
 @vite(['resources/js/masks.js', 'resources/js/endereco.js'])

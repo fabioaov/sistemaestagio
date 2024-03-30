@@ -1,13 +1,16 @@
-$("#cep").on("blur", function () {
-    consultarCep($(this).val());
+$(document).ready(function () {
+    if (oldCidade.trim() !== "") {
+        const idEstado = $("#estado").val();
+        buscarCidadesPorIdEstado(idEstado, oldCidade);
+    }
 });
-$("#estado").on("change", function () {
-    buscarCidadesPorIdEstado($(this).val());
-});
-function consultarCep(cep) {
+window.consultarCep = function consultarCep(cep) {
     $.get(`https://viacep.com.br/ws/${cep}/json/`)
         .done(function (data) {
-            const endereco = data.complemento.trim() !== "" ? `${data.logradouro}, ${data.complemento}, ${data.bairro}` : `${data.logradouro}, ${data.bairro}`;
+            const endereco =
+                data.complemento.trim() !== ""
+                    ? `${data.logradouro}, ${data.complemento}, ${data.bairro}`
+                    : `${data.logradouro}, ${data.bairro}`;
             $("#logradouro").val(endereco);
             buscarIdEstadoPorSigla(data.uf, function () {
                 buscarIdCidadePorNomeESiglaEstado(data.localidade, data.uf);
@@ -16,19 +19,23 @@ function consultarCep(cep) {
         .fail(function (error) {
             console.error("Erro ao consultar o CEP:", error);
         });
-}
-function buscarCidadesPorIdEstado(idEstado) {
+};
+window.buscarCidadesPorIdEstado = function buscarCidadesPorIdEstado(
+    idEstado,
+    idCidade = null
+) {
     $.get(`/cidades/${idEstado}`).done(function (data) {
         let selectCidade = $("#cidade");
         selectCidade.empty();
         selectCidade.append('<option value="">Selecione</option>');
         $.each(data, function (index, cidade) {
+            let selected = idCidade == cidade.id ? "selected" : "";
             selectCidade.append(
-                `<option value="${cidade.id}">${cidade.nome}</option>`
+                `<option value='${cidade.id}' ${selected}>${cidade.nome}</option>`
             );
         });
     });
-}
+};
 function buscarIdCidadePorNomeESiglaEstado(nomeCidade, siglaEstado) {
     $.get(`/cidade/${nomeCidade}/${siglaEstado}`).done(function (data) {
         let selectCidade = $("#cidade");

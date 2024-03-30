@@ -13,7 +13,8 @@ class LeadController extends Controller
      */
     public function index()
     {
-        return view('leads.novos');
+        $leads = Lead::paginate(25);
+        return view('leads.novos', compact('leads'));
     }
     /**
      * Show the form for creating a new resource.

@@ -8,7 +8,7 @@
     </x-slot>
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="grid">
-            <x-button href="{{ route('leads.create') }}" class="justify-self-end max-w-xs gap-2 mb-6">
+            <x-button href="{{ route('leads.create') }}" class="justify-self-end max-w-xs mb-6">
                 <span>Cadastrar novo lead</span>
             </x-button>
         </div>
@@ -16,68 +16,33 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Product name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Color
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Category
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Price
-                        </th>
+                        <th scope="col" class="px-6 py-3">ID</th>
+                        <th scope="col" class="px-6 py-3">CNPJ</th>
+                        <th scope="col" class="px-6 py-3">Nome Fantasia</th>
+                        <th scope="col" class="px-6 py-3">E-mail</th>
+                        <th scope="col" class="px-6 py-3">Telefone</th>
+                        <th scope="col" class="px-6 py-3">Representante</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="px-6 py-4">
-                            White
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop PC
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Mouse 2
-                        </th>
-                        <td class="px-6 py-4">
-                            Black
-                        </td>
-                        <td class="px-6 py-4">
-                            Accessories
-                        </td>
-                        <td class="px-6 py-4">
-                            $99
-                        </td>
-                    </tr>
+                    @foreach ($leads as $lead)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $lead->id }}
+                            </th>
+                            <td class="px-6 py-4">{{ $lead->cnpj }}</td>
+                            <td class="px-6 py-4">{{ $lead->nome_fantasia }}</td>
+                            <td class="px-6 py-4">{{ $lead->email }}</td>
+                            <td class="px-6 py-4">{{ $lead->telefone }}</td>
+                            <td class="px-6 py-4">{{ $lead->representante }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
+            <div class="mt-6">
+                {{ $leads->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>

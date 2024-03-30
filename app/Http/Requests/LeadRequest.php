@@ -41,10 +41,10 @@ class LeadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cnpj' => 'digits:18|nullable|required_without_all:razao_social,nome_fantasia,cep,logradouro,ponto_referencia,email,telefone,representante',
+            'cnpj' => 'size:18|nullable|required_without_all:razao_social,nome_fantasia,cep,logradouro,ponto_referencia,email,telefone,representante',
             'razao_social' => 'max:100|nullable|required_without_all:cnpj,nome_fantasia,cep,logradouro,ponto_referencia,email,telefone,representante',
             'nome_fantasia' => 'max:100|nullable|required_without_all:cnpj,razao_social,cep,logradouro,ponto_referencia,email,telefone,representante',
-            'cep' => 'digits:9|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,ponto_referencia,email,telefone,representante',
+            'cep' => 'size:9|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,ponto_referencia,email,telefone,representante',
             'logradouro' => 'max:150|nullable|required_without_all:cnpj,razao_social,nome_fantasia,cep,ponto_referencia,email,telefone,representante',
             'estado' => 'exists:estados,id|nullable|required_with:logradouro,ponto_referencia',
             'cidade' => 'exists:cidades,id|nullable|required_with:estado',
