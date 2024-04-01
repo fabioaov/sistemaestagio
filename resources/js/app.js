@@ -1,6 +1,7 @@
 import "./bootstrap";
 import Alpine from "alpinejs";
 import collapse from "@alpinejs/collapse";
+import 'flowbite';
 import jQuery from "jquery";
 import PerfectScrollbar from "perfect-scrollbar";
 window.$ = jQuery;

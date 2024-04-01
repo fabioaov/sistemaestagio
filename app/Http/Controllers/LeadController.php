@@ -34,17 +34,25 @@ class LeadController extends Controller
         $validated['id_cidade'] = $validated['cidade'] ?? null;
         unset($validated['estado']);
         unset($validated['cidade']);
-        $lead = new Lead;
-        $lead->fill($validated);
-        $lead->save();
-        return redirect()->route('leads.novos');
+        if ($request->has('id') && $request->filled('id')) {
+            $lead = Lead::findOrFail($request->id);
+            $lead->update($validated);
+        } else {
+            $lead = new Lead;
+            $lead->fill($validated);
+            $lead->save();
+        }
+        return redirect()->route('leads.index');
     }
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        //
+        return view('leads.form', [
+            'lead' => Lead::findOrFail($id),
+            'estados' => Estado::all()
+        ]);
     }
     /**
      * Show the form for editing the specified resource.

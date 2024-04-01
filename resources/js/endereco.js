@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    if (oldCidade.trim() !== "") {
+    let idCidade = $("#id_cidade").val();
+    if (idCidade.trim() !== "") {
         const idEstado = $("#estado").val();
-        buscarCidadesPorIdEstado(idEstado, oldCidade);
+        buscarCidadesPorIdEstado(idEstado, idCidade);
     }
 });
 window.consultarCep = function consultarCep(cep) {
@@ -12,7 +13,7 @@ window.consultarCep = function consultarCep(cep) {
                     ? `${data.logradouro}, ${data.complemento}, ${data.bairro}`
                     : `${data.logradouro}, ${data.bairro}`;
             $("#logradouro").val(endereco);
-            buscarIdEstadoPorSigla(data.uf, function () {
+            buscarIdEstadoPorSigla(data.uf).then(function () {
                 buscarIdCidadePorNomeESiglaEstado(data.localidade, data.uf);
             });
         })
@@ -37,18 +38,29 @@ window.buscarCidadesPorIdEstado = function buscarCidadesPorIdEstado(
     });
 };
 function buscarIdCidadePorNomeESiglaEstado(nomeCidade, siglaEstado) {
-    $.get(`/cidade/${nomeCidade}/${siglaEstado}`).done(function (data) {
-        let selectCidade = $("#cidade");
-        selectCidade.val(data);
+    return new Promise(function (resolve, reject) {
+        $.get(`/cidade/${nomeCidade}/${siglaEstado}`)
+            .done(function (data) {
+                let selectCidade = $("#cidade");
+                selectCidade.val(data);
+                resolve();
+            })
+            .fail(function (error) {
+                reject(error);
+            });
     });
 }
-function buscarIdEstadoPorSigla(siglaEstado, callback) {
-    $.get(`/estados/${siglaEstado}`).done(function (data) {
-        let selectEstado = $("#estado");
-        selectEstado.val(data);
-        buscarCidadesPorIdEstado(data);
-        if (callback) {
-            callback();
-        }
+function buscarIdEstadoPorSigla(siglaEstado) {
+    return new Promise(function (resolve, reject) {
+        $.get(`/estados/${siglaEstado}`)
+            .done(function (data) {
+                let selectEstado = $("#estado");
+                selectEstado.val(data);
+                buscarCidadesPorIdEstado(data);
+                resolve();
+            })
+            .fail(function (error) {
+                reject(error);
+            });
     });
 }

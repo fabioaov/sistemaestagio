@@ -22,6 +22,7 @@
                         <th scope="col" class="px-6 py-3">E-mail</th>
                         <th scope="col" class="px-6 py-3">Telefone</th>
                         <th scope="col" class="px-6 py-3">Representante</th>
+                        <th scope="col" class="px-6 py-3">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,20 @@
                             <td class="px-6 py-4">{{ $lead->email }}</td>
                             <td class="px-6 py-4">{{ $lead->telefone }}</td>
                             <td class="px-6 py-4">{{ $lead->representante }}</td>
+                            <td class="px-6 py-4">
+                                <x-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <x-button size="sm">
+                                            <x-heroicon-o-chevron-down class="w-6 h-6" aria-hidden="true" />
+                                        </x-button>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <x-dropdown-link>Mover</x-dropdown-link>
+                                        <x-dropdown-link :href="route('leads.show', $lead->id)">Editar</x-dropdown-link>
+                                        <x-dropdown-link>Excluir</x-dropdown-link>
+                                    </x-slot>
+                                </x-dropdown>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
