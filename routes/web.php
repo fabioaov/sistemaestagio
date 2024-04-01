@@ -37,8 +37,9 @@ Route::middleware('auth')->group(function () {
         Route::controller(LeadController::class)->name('leads.')->group(function () {
             Route::get('/leads/novos', 'index')->name('index');
             Route::get('/leads/cadastrar', 'create')->name('create');
-            Route::get('/leads/ver/{id}', 'show')->name('show');
+            Route::get('/leads/{id}', 'show')->name('show');
             Route::post('/leads', 'store')->name('store');
+            Route::delete('/leads/{id}', 'destroy')->name('destroy');
         });
     });
 });

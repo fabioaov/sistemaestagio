@@ -45,9 +45,8 @@
                                         </x-button>
                                     </x-slot>
                                     <x-slot name="content">
-                                        <x-dropdown-link>Mover</x-dropdown-link>
                                         <x-dropdown-link :href="route('leads.show', $lead->id)">Editar</x-dropdown-link>
-                                        <x-dropdown-link>Excluir</x-dropdown-link>
+                                        <x-dropdown-link :href="route('leads.destroy', $lead->id)" data-confirm-delete="true">Excluir</x-dropdown-link>
                                     </x-slot>
                                 </x-dropdown>
                             </td>

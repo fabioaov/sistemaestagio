@@ -9,15 +9,21 @@ use Illuminate\Http\Request;
 class LeadController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Exibe a página inicial de leads, listando os leads paginados.
+     * Antes de exibir a página, exibe um diálogo de confirmação para excluir um lead.
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $leads = Lead::paginate(25);
+        $leads = Lead::where('status', '>', 0)->paginate(25);
+        $titulo = "Excluir lead";
+        $texto = "Tem certeza que deseja excluir este lead?";
+        confirmDelete($titulo, $texto);
         return view('leads.novos', compact('leads'));
     }
     /**
-     * Show the form for creating a new resource.
+     * Exibe o formulário de criação de um novo lead.
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -25,7 +31,9 @@ class LeadController extends Controller
         return view('leads.form', compact('estados'));
     }
     /**
-     * Store a newly created resource in storage.
+     * Armazena um novo lead no banco de dados ou atualiza um lead existente.
+     * @param  \App\Http\Requests\LeadRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LeadRequest $request)
     {
@@ -45,7 +53,9 @@ class LeadController extends Controller
         return redirect()->route('leads.index');
     }
     /**
-     * Display the specified resource.
+     * Exibe os detalhes de um lead específico.
+     * @param  int  $id
+     * @return \Illuminate\View\View
      */
     public function show(int $id)
     {
@@ -55,24 +65,13 @@ class LeadController extends Controller
         ]);
     }
     /**
-     * Show the form for editing the specified resource.
+     * Remove um lead do banco de dados.
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(string $id)
+    public function destroy(int $id)
     {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Lead::destroy($id);
+        return redirect()->route('leads.index');
     }
 }
