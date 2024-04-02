@@ -6,6 +6,7 @@
                 <x-heroicon-o-filter class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             </x-slot>
             <x-sidebar.sublink title="Novos" href="{{ route('leads.novos') }}" :active="request()->routeIs('leads.novos')" />
+            <x-sidebar.sublink title="Interessados" href="{{ route('leads.interessados') }}" :active="request()->routeIs('leads.interessados')" />
         </x-sidebar.dropdown>
     @elseif(Auth::user()->modulo === 3)
 
