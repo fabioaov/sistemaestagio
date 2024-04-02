@@ -9,13 +9,12 @@ use Illuminate\Http\Request;
 class LeadController extends Controller
 {
     /**
-     * Exibe a página inicial de leads, listando os leads paginados.
-     * Antes de exibir a página, exibe um diálogo de confirmação para excluir um lead.
-     * @return \Illuminate\View\View
+     * Esta função obtém os leads com status 1 (novos) e os exibe em uma página.
+     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function novos()
     {
-        $leads = Lead::where('status', '>', 0)->paginate(25);
+        $leads = Lead::where('status', 1)->paginate(25);
         $titulo = "Excluir lead";
         $texto = "Tem certeza que deseja excluir este lead?";
         confirmDelete($titulo, $texto);
@@ -50,7 +49,7 @@ class LeadController extends Controller
             $lead->fill($validated);
             $lead->save();
         }
-        return redirect()->route('leads.index');
+        return redirect()->route('leads.novos');
     }
     /**
      * Exibe os detalhes de um lead específico.
@@ -72,6 +71,6 @@ class LeadController extends Controller
     public function destroy(int $id)
     {
         Lead::destroy($id);
-        return redirect()->route('leads.index');
+        return redirect()->route('leads.novos');
     }
 }
