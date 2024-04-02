@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class LeadController extends Controller
 {
     /**
-     * Esta função obtém os leads com status 1 (novos) e os exibe em uma página.
+     * Esta função obtém os leads com status 1 (novos) e os exibe em uma página
+     * onde é possível excluí-los. Antes da exclusão dos leads, um diálogo de
+     * confirmação é mostrado para garantir que o usuário deseja realmente excluir
+     * o lead selecionado.
      * @return \Illuminate\Contracts\View\View
      */
     public function novos()
