@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LeadRequest;
 use App\Models\Estado;
 use App\Models\Lead;
-use Illuminate\Http\Request;
 
 class LeadController extends Controller
 {
     /**
-     * Esta função obtém os leads com status 1 (novos) e os exibe em uma página
-     * onde é possível excluí-los. Antes da exclusão dos leads, um diálogo de
-     * confirmação é mostrado para garantir que o usuário deseja realmente excluir
-     * o lead selecionado.
+     * Exibe os leads novos e permite a exclusão.
      * @return \Illuminate\Contracts\View\View
      */
     public function novos()
@@ -24,10 +20,19 @@ class LeadController extends Controller
         return view('leads.novos', compact('leads'));
     }
     /**
-     * Exibe o formulário de criação de um novo lead.
+     * Exibe os leads interessados.
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function interessados()
+    {
+        $leads = Lead::where('status', 2)->paginate(25);
+        return view('leads.interessados', compact('leads'));
+    }
+    /**
+     * Exibe o formulário de lead.
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function form()
     {
         $estados = Estado::all();
         return view('leads.form', compact('estados'));
