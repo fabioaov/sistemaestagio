@@ -58,7 +58,7 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <button type="submit"
-                                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Novos</button>
+                                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Novos</button>
                                                     </form>
                                                 </li>
                                             </ul>
