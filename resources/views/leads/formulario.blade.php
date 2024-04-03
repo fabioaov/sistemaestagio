@@ -107,4 +107,4 @@
         </form>
     </div>
 </x-app-layout>
-@vite(['resources/js/masks.js', 'resources/js/endereco.js'])
+@vite(['resources/js/mascara.js', 'resources/js/endereco.js'])

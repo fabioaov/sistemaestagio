@@ -59,14 +59,13 @@
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="doubleDropdownButton">
                                                 <li>
-                                                    {{-- TODO: Criar alerta de confirmação --}}
-                                                    <form method="POST"
-                                                        action="{{ route('leads.mover', ['id' => $lead->id, 'status' => 2]) }}">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit"
-                                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Interessados</button>
-                                                    </form>
+                                                    <a href="{{ route('leads.mover', ['id' => $lead->id, 'status' => 2]) }}"
+                                                        data-titulo="Mover lead"
+                                                        data-texto="Tem certeza que deseja mover este lead para interessados?"
+                                                        data-method="put"
+                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">
+                                                        Interessados
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -76,13 +75,9 @@
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
                                     </li>
                                     <li>
-                                        {{-- TODO: Criar alerta de confirmação --}}
-                                        <form method="POST" action="{{ route('leads.excluir', $lead->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Excluir</button>
-                                        </form>
+                                        <a href="{{ route('leads.excluir', $lead->id) }}" data-titulo="Excluir lead"
+                                            data-texto="Tem certeza que deseja excluir este lead?" data-method="delete"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Excluir</a>
                                     </li>
                                 </ul>
                             </div>
@@ -98,3 +93,4 @@
         </div>
     </div>
 </x-app-layout>
+@vite(['resources/js/alerta.js'])

@@ -54,14 +54,13 @@
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="doubleDropdownButton">
                                                 <li>
-                                                    {{-- TODO: Criar alerta de confirmação --}}
-                                                    <form method="POST"
-                                                        action="{{ route('leads.mover', ['id' => $lead->id, 'status' => 1]) }}">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit"
-                                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Novos</button>
-                                                    </form>
+                                                    <a href="{{ route('leads.mover', ['id' => $lead->id, 'status' => 1]) }}"
+                                                        data-titulo="Mover lead"
+                                                        data-texto="Tem certeza que deseja mover este lead para novos?"
+                                                        data-method="put"
+                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                        Novos
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -84,3 +83,4 @@
         </div>
     </div>
 </x-app-layout>
+@vite(['resources/js/alerta.js'])

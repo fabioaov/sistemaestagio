@@ -1,11 +1,13 @@
 import "./bootstrap";
-import 'flowbite';
+import "flowbite";
 import Alpine from "alpinejs";
 import collapse from "@alpinejs/collapse";
 import jQuery from "jquery";
 import PerfectScrollbar from "perfect-scrollbar";
+import Swal from "sweetalert2";
 window.$ = jQuery;
 window.PerfectScrollbar = PerfectScrollbar;
+window.Swal = Swal;
 document.addEventListener("alpine:init", () => {
     Alpine.data("mainState", () => {
         let lastScrollTop = 0;
