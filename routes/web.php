@@ -37,10 +37,11 @@ Route::middleware('auth')->group(function () {
         Route::controller(LeadController::class)->name('leads.')->group(function () {
             Route::get('/leads/novos', 'novos')->name('novos');
             Route::get('/leads/interessados', 'interessados')->name('interessados');
-            Route::get('/leads/cadastrar', 'form')->name('form');
-            Route::get('/leads/{id}', 'show')->name('show');
-            Route::post('/leads', 'store')->name('store');
-            Route::delete('/leads/{id}', 'destroy')->name('destroy');
+            Route::get('/leads/cadastrar', 'cadastrar')->name('cadastrar');
+            Route::get('/leads/{id}/editar', 'editar')->name('editar');
+            Route::post('/leads/salvar', 'salvar')->name('salvar');
+            Route::put('/leads/{id}/mover/{status}', 'mover')->name('mover');
+            Route::delete('/leads/{id}/excluir', 'excluir')->name('excluir');
         });
     });
 });

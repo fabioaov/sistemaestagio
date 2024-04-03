@@ -9,7 +9,7 @@
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        <form method="POST" action="{{ route('leads.store') }}">
+        <form method="POST" action="{{ route('leads.salvar') }}">
             @csrf
             <input type="hidden" name="id" value="{{ $lead->id ?? '' }}" />
             <div class="grid gap-6 grid-cols-4">

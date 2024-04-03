@@ -8,19 +8,17 @@ use App\Models\Lead;
 class LeadController extends Controller
 {
     /**
-     * Exibe os leads novos e permite a exclusão.
+     * Retorna a view para exibir os leads novos (status 1) e confirma a exclusão de um lead.
      * @return \Illuminate\Contracts\View\View
      */
     public function novos()
     {
         $leads = Lead::where('status', 1)->paginate(25);
-        $titulo = "Excluir lead";
-        $texto = "Tem certeza que deseja excluir este lead?";
-        confirmDelete($titulo, $texto);
         return view('leads.novos', compact('leads'));
     }
     /**
-     * Exibe os leads interessados.
+     * Retorna a view para exibir os leads interessados (status 2).
+     *
      * @return \Illuminate\Contracts\View\View
      */
     public function interessados()
@@ -29,20 +27,32 @@ class LeadController extends Controller
         return view('leads.interessados', compact('leads'));
     }
     /**
-     * Exibe o formulário de lead.
-     * @return \Illuminate\View\View
+     * Retorna a view para exibir o formulário de leads, com os estados para seleção.
+     * @return \Illuminate\Contracts\View\View
      */
-    public function form()
+    public function cadastrar()
     {
         $estados = Estado::all();
-        return view('leads.form', compact('estados'));
+        return view('leads.formulario', compact('estados'));
     }
     /**
-     * Armazena um novo lead no banco de dados ou atualiza um lead existente.
+     * Exibe o formulário para visualização e edição de um lead específico.
+     * @param  int  $id
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function editar(int $id)
+    {
+        return view('leads.formulario', [
+            'lead' => Lead::findOrFail($id),
+            'estados' => Estado::all()
+        ]);
+    }
+    /**
+     * Salva um novo lead ou atualiza um lead existente com base nos dados fornecidos.
      * @param  \App\Http\Requests\LeadRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(LeadRequest $request)
+    public function salvar(LeadRequest $request)
     {
         $validated = $request->validated();
         $validated['id_estado'] = $validated['estado'] ?? null;
@@ -60,23 +70,27 @@ class LeadController extends Controller
         return redirect()->route('leads.novos');
     }
     /**
-     * Exibe os detalhes de um lead específico.
+     * Move um lead para um novo status.
      * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function show(int $id)
-    {
-        return view('leads.form', [
-            'lead' => Lead::findOrFail($id),
-            'estados' => Estado::all()
-        ]);
-    }
-    /**
-     * Remove um lead do banco de dados.
-     * @param  int  $id
+     * @param  int  $status
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(int $id)
+    public function mover(int $id, int $status)
+    {
+        switch ($status) {
+            case 1:
+                $texto_status = "novos";
+                break;
+            case 2:
+                $texto_status = "interessados";
+                break;
+        }
+        $lead = Lead::findOrFail($id);
+        $lead->status = $status;
+        $lead->save();
+        return redirect()->back();
+    }
+    public function excluir(int $id)
     {
         Lead::destroy($id);
         return redirect()->route('leads.novos');
