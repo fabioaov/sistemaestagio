@@ -34,7 +34,8 @@
                                 <td class="px-6 py-4">{{ $lead->telefone }}</td>
                                 <td class="px-6 py-4">{{ $lead->representante }}</td>
                                 <td class="px-6 py-4">
-                                    <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}">
+                                    <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}"
+                                        data-dropdown-placement="right-start">
                                         <x-heroicon-o-chevron-down class="w-6 h-6" aria-hidden="true" />
                                     </x-button>
                                 </td>
@@ -53,6 +54,7 @@
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="doubleDropdownButton">
                                                 <li>
+                                                    {{-- TODO: Criar alerta de confirmação --}}
                                                     <form method="POST"
                                                         action="{{ route('leads.mover', ['id' => $lead->id, 'status' => 1]) }}">
                                                         @csrf
