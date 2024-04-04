@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $("a[data-method]").on("click", function (e) {
+    $
+    $("[data-method]").on("click", function (e) {
         e.preventDefault();
         let titulo = $(this).data("titulo");
         let texto = $(this).data("texto");

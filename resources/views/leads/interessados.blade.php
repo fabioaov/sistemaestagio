@@ -9,71 +9,41 @@
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="relative overflow-x-auto">
             @if ($leads->isNotEmpty())
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">ID</th>
-                            <th scope="col" class="px-6 py-3">CNPJ</th>
-                            <th scope="col" class="px-6 py-3">Nome Fantasia</th>
-                            <th scope="col" class="px-6 py-3">E-mail</th>
-                            <th scope="col" class="px-6 py-3">Telefone</th>
-                            <th scope="col" class="px-6 py-3">Representante</th>
-                            <th scope="col" class="px-6 py-3">Ações</th>
+                <x-table :headers="['ID', 'CNPJ', 'Nome fantasia', 'E-mail', 'Telefone', 'Representante', 'Ações']">
+                    @foreach ($leads as $lead)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $lead->id }}
+                            </th>
+                            <td>{{ $lead->cnpj }}</td>
+                            <td>{{ $lead->nome_fantasia }}</td>
+                            <td>{{ $lead->email }}</td>
+                            <td>{{ $lead->telefone }}</td>
+                            <td>{{ $lead->representante }}</td>
+                            <td>
+                                <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}"
+                                    data-dropdown-placement="right-start">
+                                    <x-heroicon-o-chevron-down class="w-6 h-6" aria-hidden="true" />
+                                </x-button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($leads as $lead)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $lead->id }}
-                                </th>
-                                <td class="px-6 py-4">{{ $lead->cnpj }}</td>
-                                <td class="px-6 py-4">{{ $lead->nome_fantasia }}</td>
-                                <td class="px-6 py-4">{{ $lead->email }}</td>
-                                <td class="px-6 py-4">{{ $lead->telefone }}</td>
-                                <td class="px-6 py-4">{{ $lead->representante }}</td>
-                                <td class="px-6 py-4">
-                                    <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}"
-                                        data-dropdown-placement="right-start">
-                                        <x-heroicon-o-chevron-down class="w-6 h-6" aria-hidden="true" />
-                                    </x-button>
-                                </td>
-                            </tr>
-                            <div id="dropdown_{{ $lead->id }}"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-                                    <li>
-                                        <button data-dropdown-toggle="mover_dropdown_{{ $lead->id }}"
-                                            data-dropdown-placement="right-start" type="button"
-                                            class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            Mover <x-heroicon-o-chevron-right class="w-4 h-4" aria-hidden="true" />
-                                        </button>
-                                        <div id="mover_dropdown_{{ $lead->id }}"
-                                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="doubleDropdownButton">
-                                                <li>
-                                                    <a href="{{ route('leads.mover', ['id' => $lead->id, 'status' => 1]) }}"
-                                                        data-titulo="Mover lead"
-                                                        data-texto="Tem certeza que deseja mover este lead para novos?"
-                                                        data-method="put"
-                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        Novos
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('leads.editar', $lead->id) }}"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        @endforeach
-                    </tbody>
-                </table>
+                        <x-multi-dropdown :id="'dropdown_' . $lead->id">
+                            <x-multi-dropdown-link data-dropdown-toggle="mover_dropdown_{{ $lead->id }}"
+                                data-dropdown-placement="right-start" class="flex justify-between cursor-pointer">
+                                Mover
+                                <x-heroicon-o-chevron-right class="w-4 h-4" aria-hidden="true" />
+                            </x-multi-dropdown-link>
+                            <x-multi-dropdown-link :href="route('leads.editar', $lead->id)">Editar</x-multi-dropdown-link>
+                        </x-multi-dropdown>
+                        <x-multi-dropdown :id="'mover_dropdown_' . $lead->id">
+                            <x-multi-dropdown-link :href="route('leads.mover', ['id' => $lead->id, 'status' => 1])" data-titulo="Mover lead"
+                                data-texto="Tem certeza que deseja mover este lead?" data-method="put">
+                                Novos
+                            </x-multi-dropdown-link>
+                        </x-multi-dropdown>
+                    @endforeach
+                </x-table>
                 <div class="mt-6">
                     {{ $leads->links() }}
                 </div>
