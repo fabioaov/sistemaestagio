@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CidadeController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
@@ -42,6 +43,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/leads/salvar', 'salvar')->name('salvar');
             Route::put('/leads/{id}/mover/{status}', 'mover')->name('mover');
             Route::delete('/leads/{id}/excluir', 'excluir')->name('excluir');
+        });
+        Route::controller(ComentarioController::class)->name('comentarios.')->group(function () {
+            Route::post('/comentarios/{idLead}/inserir', 'inserir')->name('inserir');
         });
     });
 });

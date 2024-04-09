@@ -42,6 +42,7 @@
                                 Novos
                             </x-multi-dropdown-link>
                         </x-multi-dropdown>
+                        {{-- TODO: Criar drawer de comentários --}}
                     @endforeach
                 </x-table>
                 <div class="mt-6">

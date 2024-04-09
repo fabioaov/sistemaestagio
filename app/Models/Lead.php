@@ -25,4 +25,8 @@ class Lead extends Model
         'telefone',
         'representante',
     ];
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'id_lead');
+    }
 }

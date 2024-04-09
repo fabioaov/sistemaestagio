@@ -13,12 +13,11 @@ class LeadController extends Controller
      */
     public function novos()
     {
-        $leads = Lead::where('status', 1)->paginate(25);
+        $leads = Lead::with(['comentarios', 'comentarios.user'])->where('status', 1)->paginate(25);
         return view('leads.novos', compact('leads'));
     }
     /**
      * Retorna a view para exibir os leads interessados (status 2).
-     *
      * @return \Illuminate\Contracts\View\View
      */
     public function interessados()

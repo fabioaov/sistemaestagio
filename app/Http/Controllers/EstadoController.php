@@ -8,8 +8,8 @@ class EstadoController extends Controller
 {
     /**
      * Obtém o ID de um estado a partir da sigla.
-     * @param string $siglaEstado A sigla do estado.
-     * @return mixed|\Illuminate\Http\JsonResponse Um objeto JSON contendo o ID do estado encontrado.
+     * @param string $siglaEstado
+     * @return mixed|\Illuminate\Http\JsonResponse
      */
     public function getIdEstadoPorSigla(string $siglaEstado)
     {

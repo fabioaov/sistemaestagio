@@ -9,8 +9,8 @@ class CidadeController extends Controller
 {
     /**
      * Obtém todas as cidades pertencentes a um estado específico.
-     * @param int $idEstado O ID do estado para o qual buscar cidades.
-     * @return mixed|\Illuminate\Http\JsonResponse Um objeto JSON contendo as cidades encontradas.
+     * @param int $idEstado
+     * @return mixed|\Illuminate\Http\JsonResponse
      */
     public function getCidadesPorIdEstado(int $idEstado)
     {
@@ -19,9 +19,9 @@ class CidadeController extends Controller
     }
     /**
      * Obtém o ID de uma cidade pelo nome da cidade e a sigla do estado.
-     * @param string $nomeCidade O nome da cidade a ser buscada.
-     * @param string $siglaEstado A sigla do estado ao qual a cidade pertence.
-     * @return mixed|\Illuminate\Http\JsonResponse Um objeto JSON contendo o ID da cidade encontrada.
+     * @param string $nomeCidade
+     * @param string $siglaEstado
+     * @return mixed|\Illuminate\Http\JsonResponse
      */
     public function getIdCidadePorNomeESiglaEstado(string $nomeCidade, string $siglaEstado)
     {
