@@ -22,7 +22,7 @@ class LeadController extends Controller
      */
     public function interessados()
     {
-        $leads = Lead::where('status', 2)->paginate(25);
+        $leads = Lead::with(['comentarios', 'comentarios.user'])->where('status', 2)->paginate(25);
         return view('leads.interessados', compact('leads'));
     }
     /**

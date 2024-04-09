@@ -74,6 +74,7 @@
                                     </li>
                                 @endforeach
                             </ol>
+                            {{-- TODO: Inserir comentário sem recarregar página --}}
                             <form method="POST" action="{{ route('comentarios.inserir', $lead->id) }}">
                                 @csrf
                                 <div class="grid gap-6">

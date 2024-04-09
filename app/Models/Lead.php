@@ -25,6 +25,10 @@ class Lead extends Model
         'telefone',
         'representante',
     ];
+    /**
+     * Define a relação "tem muitos" entre este modelo e o modelo Comentario.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function comentarios()
     {
         return $this->hasMany(Comentario::class, 'id_lead');
