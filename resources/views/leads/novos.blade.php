@@ -61,7 +61,8 @@
                                         <div
                                             class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
                                         </div>
-                                        <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                                        <time
+                                            class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                                             {{ $comentario->created_at->format('d/m/Y H:i:s') }}
                                         </time>
                                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
@@ -77,12 +78,13 @@
                                 @csrf
                                 <div class="grid gap-6">
                                     <div class="space-y-2">
+                                        <x-form.label for="comentario" :value="'Inserir comentário'" />
                                         <x-form.textarea name="comentario" value="{{ old('comentario') }}"
                                             placeholder="Comentário" required></x-form.textarea>
                                     </div>
                                     <div class="space-y-2">
                                         <x-button class="justify-center w-full gap-2">
-                                            <span>Inserir comentário</span>
+                                            <span>Salvar</span>
                                         </x-button>
                                     </div>
                                 </div>
