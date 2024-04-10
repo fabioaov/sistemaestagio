@@ -53,6 +53,10 @@
                                 data-texto="Tem certeza que deseja mover este lead?" data-method="put">
                                 Interessados
                             </x-multi-dropdown-link>
+                            <x-multi-dropdown-link :href="route('leads.mover', ['id' => $lead->id, 'status' => 3])" data-titulo="Mover lead"
+                                data-texto="Tem certeza que deseja mover este lead?" data-method="put">
+                                Não interessados
+                            </x-multi-dropdown-link>
                         </x-multi-dropdown>
                         <x-drawer :id="'drawer_comentarios_' . $lead->id">
                             <ol class="relative border-s border-gray-200 dark:border-gray-700">
@@ -74,7 +78,6 @@
                                     </li>
                                 @endforeach
                             </ol>
-                            {{-- TODO: Inserir comentário sem recarregar página --}}
                             <form method="POST" action="{{ route('comentarios.inserir', $lead->id) }}">
                                 @csrf
                                 <div class="grid gap-6">

@@ -26,6 +26,15 @@ class LeadController extends Controller
         return view('leads.interessados', compact('leads'));
     }
     /**
+     * Retorna a view para exibir os leads interessados (status 2).
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function naoInteressados()
+    {
+        $leads = Lead::with(['comentarios', 'comentarios.user'])->where('status', 3)->paginate(25);
+        return view('leads.nao-interessados', compact('leads'));
+    }
+    /**
      * Retorna a view para exibir o formulário de leads, com os estados para seleção.
      * @return \Illuminate\Contracts\View\View
      */

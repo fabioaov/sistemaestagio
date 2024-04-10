@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                Leads > Interessados
+                Leads > Não interessados
             </h2>
         </div>
     </x-slot>
@@ -37,12 +37,11 @@
                             <x-multi-dropdown-link data-drawer-target="drawer_comentarios_{{ $lead->id }}"
                                 data-drawer-show="drawer_comentarios_{{ $lead->id }}"
                                 data-drawer-placement="right">Ver comentários</x-multi-dropdown-link>
-                            <x-multi-dropdown-link :href="route('leads.editar', $lead->id)">Editar</x-multi-dropdown-link>
                         </x-multi-dropdown>
                         <x-multi-dropdown :id="'mover_dropdown_' . $lead->id">
-                            <x-multi-dropdown-link :href="route('leads.mover', ['id' => $lead->id, 'status' => 3])" data-titulo="Mover lead"
+                            <x-multi-dropdown-link :href="route('leads.mover', ['id' => $lead->id, 'status' => 2])" data-titulo="Mover lead"
                                 data-texto="Tem certeza que deseja mover este lead?" data-method="put">
-                                Não interessados
+                                Interessados
                             </x-multi-dropdown-link>
                         </x-multi-dropdown>
                         <x-drawer :id="'drawer_comentarios_' . $lead->id">
@@ -65,21 +64,6 @@
                                     </li>
                                 @endforeach
                             </ol>
-                            <form method="POST" action="{{ route('comentarios.inserir', $lead->id) }}">
-                                @csrf
-                                <div class="grid gap-6">
-                                    <div class="space-y-2">
-                                        <x-form.label for="comentario" :value="'Inserir comentário'" />
-                                        <x-form.textarea name="comentario" value="{{ old('comentario') }}"
-                                            placeholder="Comentário" required></x-form.textarea>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <x-button class="justify-center w-full gap-2">
-                                            <span>Salvar</span>
-                                        </x-button>
-                                    </div>
-                                </div>
-                            </form>
                         </x-drawer>
                     @endforeach
                 </x-table>
@@ -87,7 +71,7 @@
                     {{ $leads->links() }}
                 </div>
             @else
-                <p class="text-center">Nenhum lead interessado a ser exibido.</p>
+                <p class="text-center">Nenhum lead não interessado a ser exibido.</p>
             @endif
         </div>
     </div>

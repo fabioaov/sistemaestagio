@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(LeadController::class)->name('leads.')->group(function () {
             Route::get('/leads/novos', 'novos')->name('novos');
             Route::get('/leads/interessados', 'interessados')->name('interessados');
+            Route::get('/leads/nao-interessados', 'naoInteressados')->name('nao.interessados');
             Route::get('/leads/cadastrar', 'cadastrar')->name('cadastrar');
             Route::get('/leads/{id}/editar', 'editar')->name('editar');
             Route::post('/leads/salvar', 'salvar')->name('salvar');
