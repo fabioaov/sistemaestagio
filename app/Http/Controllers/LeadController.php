@@ -34,6 +34,11 @@ class LeadController extends Controller
         $leads = Lead::with(['comentarios', 'comentarios.user'])->where('status', 3)->paginate(25);
         return view('leads.nao-interessados', compact('leads'));
     }
+    public function funilDeVendas()
+    {
+        $leads = Lead::with(['comentarios', 'comentarios.user'])->where('status', 3)->paginate(25);
+        return view('leads.funil-de-vendas', compact('leads'));
+    }
     /**
      * Retorna a view para exibir o formulário de leads, com os estados para seleção.
      * @return \Illuminate\Contracts\View\View

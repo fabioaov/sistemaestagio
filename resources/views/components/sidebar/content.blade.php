@@ -7,7 +7,10 @@
             </x-slot>
             <x-sidebar.sublink title="Novos" href="{{ route('leads.novos') }}" :active="request()->routeIs('leads.novos')" />
             <x-sidebar.sublink title="Interessados" href="{{ route('leads.interessados') }}" :active="request()->routeIs('leads.interessados')" />
-            <x-sidebar.sublink title="Não interessados" href="{{ route('leads.nao.interessados') }}" :active="request()->routeIs('leads.nao.interessados')" />
+            <x-sidebar.sublink title="Não interessados" href="{{ route('leads.nao.interessados') }}"
+                :active="request()->routeIs('leads.nao.interessados')" />
+            <x-sidebar.sublink title="Funil de vendas" href="{{ route('leads.funil') }}"
+                :active="request()->routeIs('leads.funil')" />
         </x-sidebar.dropdown>
     @elseif(Auth::user()->modulo === 3)
 
