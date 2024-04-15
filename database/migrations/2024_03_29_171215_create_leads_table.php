@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('email', 50)->nullable();
             $table->string('telefone', 15)->nullable();
             $table->string('representante', 50)->nullable();
-            $table->tinyInteger('status')->default(1)->comment('0 - Desativado; 1 - Novo; 2 - Interessado; 3 - Não interessado; 4 - Aguardando proposta; 5 - Proposta enviada; 7 - Aguardando contrato; 8 - Contrato enviado');
+            $table->tinyInteger('status')->default(1)->comment('0 - Desativado; 1 - Novo; 2 - Interessado; 3 - Não interessado; 4 - Aguardando proposta; 5 - Proposta enviada; 6 - Aguardando contrato; 7 - Contrato enviado');
             $table->timestamps();
         });
     }

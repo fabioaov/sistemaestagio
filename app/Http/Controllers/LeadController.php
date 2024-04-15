@@ -36,8 +36,11 @@ class LeadController extends Controller
     }
     public function funilDeVendas()
     {
-        $leads = Lead::with(['comentarios', 'comentarios.user'])->where('status', 3)->paginate(25);
-        return view('leads.funil-de-vendas', compact('leads'));
+        $leads_aguardando_proposta = Lead::with(['comentarios', 'comentarios.user'])->where('status', 4)->get();
+        $leads_proposta_enviada = Lead::with(['comentarios', 'comentarios.user'])->where('status', 5)->get();
+        $leads_aguardando_contrato = Lead::with(['comentarios', 'comentarios.user'])->where('status', 6)->get();
+        $leads_contrato_enviado = Lead::with(['comentarios', 'comentarios.user'])->where('status', 7)->get();
+        return view('leads.funil-de-vendas', compact('leads_aguardando_proposta', 'leads_proposta_enviada', 'leads_aguardando_contrato', 'leads_contrato_enviado'));
     }
     /**
      * Retorna a view para exibir o formulário de leads, com os estados para seleção.
@@ -90,14 +93,6 @@ class LeadController extends Controller
      */
     public function mover(int $id, int $status)
     {
-        switch ($status) {
-            case 1:
-                $texto_status = "novos";
-                break;
-            case 2:
-                $texto_status = "interessados";
-                break;
-        }
         $lead = Lead::findOrFail($id);
         $lead->status = $status;
         $lead->save();

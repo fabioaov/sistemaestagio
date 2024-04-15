@@ -40,6 +40,10 @@
                             <x-multi-dropdown-link :href="route('leads.editar', $lead->id)">Editar</x-multi-dropdown-link>
                         </x-multi-dropdown>
                         <x-multi-dropdown :id="'mover_dropdown_' . $lead->id">
+                            <x-multi-dropdown-link :href="route('leads.mover', ['id' => $lead->id, 'status' => 4])" data-titulo="Mover lead"
+                                data-texto="Tem certeza que deseja mover este lead?" data-method="put">
+                                Funil de vendas
+                            </x-multi-dropdown-link>
                             <x-multi-dropdown-link :href="route('leads.mover', ['id' => $lead->id, 'status' => 3])" data-titulo="Mover lead"
                                 data-texto="Tem certeza que deseja mover este lead?" data-method="put">
                                 Não interessados

@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('/estados/{siglaEstado}', [EstadoController::class, 'getIdEstadoPorSigla']);
 Route::controller(CidadeController::class)->group(function () { 
     Route::get('/cidades/{idEstado}', 'getCidadesPorIdEstado');
-    Route::get('/cidade/{nomeCidade}/{siglaEstado}', 'getIdCidadePorNomeESiglaEstado');
+    Route::get('/cidades/{nomeCidade}/{siglaEstado}', 'getIdCidadePorNomeESiglaEstado');
 
 });
 Route::middleware('auth')->group(function () {

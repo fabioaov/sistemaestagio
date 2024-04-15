@@ -39,7 +39,7 @@ window.buscarCidadesPorIdEstado = function buscarCidadesPorIdEstado(
 };
 function buscarIdCidadePorNomeESiglaEstado(nomeCidade, siglaEstado) {
     return new Promise(function (resolve, reject) {
-        $.get(`/cidade/${nomeCidade}/${siglaEstado}`)
+        $.get(`/cidades/${nomeCidade}/${siglaEstado}`)
             .done(function (data) {
                 let selectCidade = $("#cidade");
                 selectCidade.val(data);
