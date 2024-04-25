@@ -31,6 +31,7 @@ class LeadRequest extends FormRequest
             'email' => 'E-MAIL',
             'telefone' => 'TELEFONE',
             'representante' => 'REPRESENTANTE',
+            'responsavel' => 'RESPONSÁVEL',
         ];
     }
     /**
@@ -52,6 +53,7 @@ class LeadRequest extends FormRequest
             'email' => 'max:50|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,telefone,representante',
             'telefone' => 'max:15|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,email,representante',
             'representante' => 'max:50|nullable|required_without_all:cnpj,razao_social,nome_fantasia,logradouro,email,telefone',
+            'responsavel' => 'exists:users,id|nullable',
         ];
     }
 }

@@ -41,10 +41,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/leads/nao-interessados', 'naoInteressados')->name('nao.interessados');
             Route::get('/leads/funil-de-vendas', 'funilDeVendas')->name('funil');
             Route::get('/leads/cadastrar', 'cadastrar')->name('cadastrar');
-            Route::get('/leads/{id}/editar', 'editar')->name('editar');
+            Route::get('/leads/{idLead}/editar', 'editar')->name('editar');
             Route::post('/leads/salvar', 'salvar')->name('salvar');
-            Route::put('/leads/{id}/mover/{status}', 'mover')->name('mover');
-            Route::delete('/leads/{id}/excluir', 'excluir')->name('excluir');
+            Route::put('/leads/{idLead}/mover/{status}', 'mover')->name('mover');
+            Route::put('/leads/{idLead}/vincular-responsavel', 'vincularResponsavel')->name('vincular.responsavel');
+            Route::delete('/leads/{idLead}/excluir', 'excluir')->name('excluir');
         });
         Route::controller(ComentarioController::class)->name('comentarios.')->group(function () {
             Route::post('/comentarios/{idLead}/inserir', 'inserir')->name('inserir');
