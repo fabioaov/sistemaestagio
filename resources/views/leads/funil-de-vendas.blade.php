@@ -1,6 +1,3 @@
-{{-- 
-    TODO: Função para alterar status do lead ao mover.
---}}
 <x-app-layout>
     <link rel="stylesheet" href="{{ asset('css/jkanban.min.css') }}">
     <x-slot name="header">
@@ -16,19 +13,16 @@
     </div>
     <script src="{{ asset('js/jkanban.min.js') }}"></script>
     <script>
-        const leads_aguardando_proposta = @json($leads_aguardando_proposta);
-        const leads_proposta_enviada = @json($leads_proposta_enviada);
-        const leads_aguardando_contrato = @json($leads_aguardando_contrato);
-        const leads_contrato_enviado = @json($leads_contrato_enviado);
         const kanban = new jKanban({
             element: "#kanban_funil_de_vendas",
             responsivePercentage: true,
             boards: [{
-                    id: "aguardando-proposta",
+                    id: "aguardando_proposta",
                     title: '<h5 class="text-base font-semibold text-gray-900 md:text-xl dark:text-white">Aguardando proposta</h5>',
                     item: [
                         @foreach ($leads_aguardando_proposta as $lead)
                             {
+                                id: "{{ $lead->id }}",
                                 title: `
                                     <div class="flex justify-end px-4 pt-4">
                                         <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}" data-dropdown-placement="right-start" class="mb-4">
@@ -97,11 +91,12 @@
                     ],
                 },
                 {
-                    id: "proposta-enviada",
+                    id: "proposta_enviada",
                     title: '<h5 class="text-base font-semibold text-gray-900 md:text-xl dark:text-white">Proposta enviada</h5>',
                     item: [
                         @foreach ($leads_proposta_enviada as $lead)
                             {
+                                id: "{{ $lead->id }}",
                                 title: `
                                     <div class="flex justify-end px-4 pt-4">
                                         <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}" data-dropdown-placement="right-start" class="mb-4">
@@ -167,11 +162,12 @@
                     ],
                 },
                 {
-                    id: "aguardando-contrato",
+                    id: "aguardando_contrato",
                     title: '<h5 class="text-base font-semibold text-gray-900 md:text-xl dark:text-white">Aguardando contrato</h5>',
                     item: [
                         @foreach ($leads_aguardando_contrato as $lead)
                             {
+                                id: "{{ $lead->id }}",
                                 title: `
                                     <div class="flex justify-end px-4 pt-4">
                                         <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}" data-dropdown-placement="right-start" class="mb-4">
@@ -240,11 +236,12 @@
                     ],
                 },
                 {
-                    id: "contrato-enviado",
+                    id: "contrato_enviado",
                     title: '<h5 class="text-base font-semibold text-gray-900 md:text-xl dark:text-white">Contrato enviado</h5>',
                     item: [
                         @foreach ($leads_contrato_enviado as $lead)
                             {
+                                id: "{{ $lead->id }}",
                                 title: `
                                     <div class="flex justify-end px-4 pt-4">
                                         <x-button size="sm" data-dropdown-toggle="dropdown_{{ $lead->id }}" data-dropdown-placement="right-start" class="mb-4">
@@ -325,6 +322,32 @@
                 drawers.forEach(drawer => {
                     drawer.classList.add('hidden');
                 });
+            },
+            dropEl: function(el, target, source, sibling) {
+                let idItem = el.dataset.eid;
+                let idQuadro = target.parentElement.dataset.id;
+                let status;
+                switch (idQuadro) {
+                    case "aguardando_proposta":
+                        status = 4;
+                        break;
+                    case "proposta_enviada":
+                        status = 5;
+                        break;
+                    case "aguardando_contrato":
+                        status = 6;
+                        break;
+                    case "contrato_enviado":
+                        status = 7;
+                        break;
+                }
+                let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', `/leads/${idItem}/mover/${status}`);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                xhr.setRequestHeader('X-HTTP-Method-Override', 'PUT');
+                xhr.send();
             },
         });
         document.querySelectorAll(".kanban-board").forEach(function(board) {
